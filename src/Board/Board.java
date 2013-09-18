@@ -27,6 +27,7 @@ public class Board {
 		counter = 0;
 	}
 
+	//building board with tiles
 	public void addTile(Tile tile, boolean north, boolean west){
 		int heightPosition = counter/height;
 		int widthPosition = counter%width;
@@ -190,5 +191,16 @@ public class Board {
 
 	public void putArsenal(int vertical, int horizontal){
 		board[vertical-1][horizontal-1].setArsenal(true);
+	}
+
+	public void makeTeleport(Tile tile1, Tile tile2, Tile tile3){
+		tile1.setTeleport(tile2);
+		tile2.setTeleport(tile3);
+		tile3.setTeleport(tile1);
+	}
+
+	public void makeTeleport(Tile tile4, Tile tile5){
+		tile4.setTeleport(tile5);
+		tile5.setTeleport(tile4);
 	}
 }

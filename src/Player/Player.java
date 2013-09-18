@@ -28,11 +28,13 @@ public class Player {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		}
-		if(tile.hasArsenal()){
+		} else if(tile.hasArsenal()){
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
+		} else if(tile.getTeleport() != null){
+			System.out.println(name + " has been teleported");
+			tile = tile.getTeleport();
 		}
 	}
 
@@ -48,11 +50,13 @@ public class Player {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		}
-		if(tile.hasArsenal()){
+		} else if(tile.hasArsenal()){
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
+		} else if(tile.getTeleport() != null){
+			System.out.println(name + " has been teleported");
+			tile = tile.getTeleport();
 		}
 		return true;
 	}
@@ -69,11 +73,13 @@ public class Player {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		}
-		if(tile.hasArsenal()){
+		} else if(tile.hasArsenal()){
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
+		} else if(tile.getTeleport() != null){
+			System.out.println(name + " has been teleported");
+			tile = tile.getTeleport();
 		}
 		return true;
 	}
@@ -90,11 +96,13 @@ public class Player {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		}
-		if(tile.hasArsenal()){
+		} else if(tile.hasArsenal()){
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
+		} else if(tile.getTeleport() != null){
+			System.out.println(name + " has been teleported");
+			tile = tile.getTeleport();
 		}
 		return true;
 	}
@@ -111,11 +119,13 @@ public class Player {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		}
-		if(tile.hasArsenal()){
+		} else if(tile.hasArsenal()){
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
+		} else if(tile.getTeleport() != null){
+			System.out.println(name + " has been teleported");
+			tile = tile.getTeleport();
 		}
 		return true;
 	}

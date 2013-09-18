@@ -7,6 +7,9 @@ import Player.Player;
  * User: Aleksandr Shved
  * Date: 16.09.13
  * Time: 23:03
+ *
+ * TODO: Control, that teleports, treasure and arsenal are different tiles.
+ *
  */
 public class Labyrinth {
 
@@ -42,6 +45,7 @@ public class Labyrinth {
 		System.out.println("Printing the board:");
 		board.printBoard();
 		board.putTreasure(3, 3);
+		board.putArsenal(1, 2);
 		Player player = new Player(board, "Jack", 2, 3);
 		player.moveEast();
 		player.moveEast();

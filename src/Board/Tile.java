@@ -13,7 +13,7 @@ public class Tile {
 	private Tile east;
 	private Tile south;
 	private Tile west;
-//	private Tile teleport;
+	private Tile teleport;
  	private boolean treasure = false;
 	private boolean arsenal = false;
 
@@ -76,5 +76,13 @@ public class Tile {
 
 	public void setArsenal(boolean arsenal) {
 		this.arsenal = arsenal;
+	}
+
+	public Tile getTeleport() {
+		return teleport;
+	}
+
+	public void setTeleport(Tile teleport) {
+		this.teleport = teleport;
 	}
 }

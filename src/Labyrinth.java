@@ -41,6 +41,7 @@ public class Labyrinth {
 
 		System.out.println("Printing the board:");
 		board.printBoard();
+		board.putTreasure(3, 3);
 		Player player = new Player(board, "Jack", 2, 3);
 		player.moveEast();
 		player.moveEast();
@@ -50,7 +51,11 @@ public class Labyrinth {
 		player.moveEast();
 		player.moveWest();
 		player.moveNorth();
-
+		Player bob = new Player(board, "Bob", 4, 2);
+		Player peter = new Player(board, "Peter", 3, 2);
+		Player tom = new Player(board, "Tom", 3, 3);
+		bob.shootNorth();
+		peter.shootNorth();
 	}
 
 }

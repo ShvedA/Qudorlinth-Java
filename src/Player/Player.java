@@ -14,12 +14,26 @@ public class Player {
 	private String name;
 	private Tile tile;
 	private Board board;
+	private int shoots;
+	private boolean treasure = false;
 
 	public Player(Board board, String name, int height, int width) {
 		this.board = board;
 		this.name = name;
+		shoots = board.getDefaultShoots();
+		board.addPlayer(this);
 		tile = board.getTile(height - 1, width - 1);
 		System.out.println("Player " + name + " started the game at " + tile.getName());
+		if(tile.hasTreasure()){
+			System.out.println(name + " has recieved treasure");
+			tile.setTreasure(false);
+			treasure = true;
+		}
+		if(tile.hasArsenal()){
+			System.out.println(name + " has found arsenal");
+			tile.setArsenal(false);
+			shoots += board.getDefaultShoots();
+		}
 	}
 
 	public boolean moveNorth() {
@@ -30,6 +44,16 @@ public class Player {
 		}
 		tile = tile.getNorth();
 		System.out.println("Player " + name + " moved to " + tile);
+		if(tile.hasTreasure()){
+			System.out.println(name + " has recieved treasure");
+			tile.setTreasure(false);
+			treasure = true;
+		}
+		if(tile.hasArsenal()){
+			System.out.println(name + " has found arsenal");
+			tile.setArsenal(false);
+			shoots += board.getDefaultShoots();
+		}
 		return true;
 	}
 
@@ -41,6 +65,16 @@ public class Player {
 		}
 		tile = tile.getEast();
 		System.out.println("Player " + name + " moved to " + tile);
+		if(tile.hasTreasure()){
+			System.out.println(name + " has recieved treasure");
+			tile.setTreasure(false);
+			treasure = true;
+		}
+		if(tile.hasArsenal()){
+			System.out.println(name + " has found arsenal");
+			tile.setArsenal(false);
+			shoots += board.getDefaultShoots();
+		}
 		return true;
 	}
 
@@ -52,6 +86,16 @@ public class Player {
 		}
 		tile = tile.getSouth();
 		System.out.println("Player " + name + " moved to " + tile);
+		if(tile.hasTreasure()){
+			System.out.println(name + " has recieved treasure");
+			tile.setTreasure(false);
+			treasure = true;
+		}
+		if(tile.hasArsenal()){
+			System.out.println(name + " has found arsenal");
+			tile.setArsenal(false);
+			shoots += board.getDefaultShoots();
+		}
 		return true;
 	}
 
@@ -63,7 +107,76 @@ public class Player {
 		}
 		tile = tile.getWest();
 		System.out.println("Player " + name + " moved to " + tile);
+		if(tile.hasTreasure()){
+			System.out.println(name + " has recieved treasure");
+			tile.setTreasure(false);
+			treasure = true;
+		}
+		if(tile.hasArsenal()){
+			System.out.println(name + " has found arsenal");
+			tile.setArsenal(false);
+			shoots += board.getDefaultShoots();
+		}
 		return true;
 	}
 
+	public boolean shootNorth() {
+		if (shoots > 0) {
+			System.out.println(name + " shoots to the north");
+			shoots--;
+			board.shootNorth(tile, this);
+		} else {
+			System.out.println("You have no shoots left");
+		}
+		return false;
+	}
+
+	public boolean shootEast() {
+		if (shoots > 0) {
+			System.out.println(name + " shoots to the east");
+			shoots--;
+			board.shootEast(tile, this);
+		} else {
+			System.out.println("You have no shoots left");
+		}
+		return false;
+	}
+
+	public boolean shootSouth() {
+		if (shoots > 0) {
+			System.out.println(name + " shoots to the south");
+			shoots--;
+			board.shootSouth(tile, this);
+		} else {
+			System.out.println("You have no shoots left");
+		}
+		return false;
+	}
+
+	public boolean shootWest() {
+		if (shoots > 0) {
+			System.out.println(name + " shoots to the west");
+			shoots--;
+			board.shootWest(tile, this);
+		} else {
+			System.out.println("You have no shoots left");
+		}
+		return false;
+	}
+
+	public Tile getTile(){
+		return tile;
+	}
+
+	public String toString(){
+		return name + "(" + shoots + ")";
+	}
+
+	public void setTreasure(boolean treasure){
+		this.treasure = treasure;
+	}
+
+	public boolean hasTreasure(){
+		return treasure;
+	}
 }

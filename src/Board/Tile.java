@@ -14,7 +14,8 @@ public class Tile {
 	private Tile south;
 	private Tile west;
 //	private Tile teleport;
-//	private boolean treasure;
+ 	private boolean treasure = false;
+	private boolean arsenal = false;
 
 	public Tile(String name){
 		this.name = name;
@@ -59,5 +60,21 @@ public class Tile {
 
 	public void setWest(Tile west) {
 		this.west = west;
+	}
+
+	public void setTreasure(boolean treasure){
+		this.treasure = treasure;
+	}
+
+	public boolean hasTreasure(){
+		return treasure;
+	}
+
+	public boolean hasArsenal() {
+		return arsenal;
+	}
+
+	public void setArsenal(boolean arsenal) {
+		this.arsenal = arsenal;
 	}
 }

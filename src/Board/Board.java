@@ -2,6 +2,8 @@ package Board;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import Player.Player;
 
 /**
@@ -13,6 +15,7 @@ import Player.Player;
 public class Board {
 
 	private static final int DEFAULT_SHOOTS = 3;
+	private static final int DEFAULT_DYNAMITES = 1;
 
 	private int height;
 	private int width;
@@ -185,6 +188,10 @@ public class Board {
 		return DEFAULT_SHOOTS;
 	}
 
+	public int getDefaultDynamites(){
+		return DEFAULT_DYNAMITES;
+	}
+
 	public void putTreasure(int vertical, int horizontal){
 		board[vertical-1][horizontal-1].setTreasure(true);
 	}
@@ -202,5 +209,18 @@ public class Board {
 	public void makeTeleport(Tile tile4, Tile tile5){
 		tile4.setTeleport(tile5);
 		tile5.setTeleport(tile4);
+	}
+
+	public void addExitTiles(){
+		Random randomHeight = new Random();
+		Random randomWidth = new Random();
+		int northExit = randomHeight.nextInt(height);
+		board[0][northExit].setNorth(new ExitTile("north exit"));
+		int eastExit = randomWidth.nextInt(width);
+		board[eastExit][board[0].length - 1].setEast(new ExitTile("east exit"));
+		int southExit = randomHeight.nextInt(height);
+		board[board.length - 1][southExit].setSouth(new ExitTile("south exit"));
+		int westExit = randomWidth.nextInt(width);
+		board[westExit][0].setWest(new ExitTile("west exit"));
 	}
 }

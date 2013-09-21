@@ -15,24 +15,27 @@ public class Player {
 	private Tile tile;
 	private Board board;
 	private int shoots;
+	private int dynamite;
 	private boolean treasure = false;
 
 	public Player(Board board, String name, int height, int width) {
 		this.board = board;
 		this.name = name;
 		shoots = board.getDefaultShoots();
+		dynamite = board.getDefaultDynamites();
 		board.addPlayer(this);
 		tile = board.getTile(height - 1, width - 1);
 		System.out.println("Player " + name + " started the game at " + tile.getName());
-		if(tile.hasTreasure()){
+		if (tile.hasTreasure()) {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		} else if(tile.hasArsenal()){
+		} else if (tile.hasArsenal()) {
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
-		} else if(tile.getTeleport() != null){
+			dynamite += board.getDefaultDynamites();
+		} else if (tile.getTeleport() != null) {
 			System.out.println(name + " has been teleported");
 			tile = tile.getTeleport();
 		}
@@ -44,17 +47,27 @@ public class Player {
 			System.out.println("Wall at the north");
 			return false;
 		}
+		if (tile.getNorth().getClass().getCanonicalName().equals("Board.ExitTile")) {
+			if (treasure) {
+				System.out.println("You have won!");
+				return true;
+			} else {
+				System.out.println("You found an exit, but you don't have a treasure.");
+				return false;
+			}
+		}
 		tile = tile.getNorth();
 		System.out.println("Player " + name + " moved to " + tile);
-		if(tile.hasTreasure()){
+		if (tile.hasTreasure()) {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		} else if(tile.hasArsenal()){
+		} else if (tile.hasArsenal()) {
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
-		} else if(tile.getTeleport() != null){
+			dynamite += board.getDefaultDynamites();
+		} else if (tile.getTeleport() != null) {
 			System.out.println(name + " has been teleported");
 			tile = tile.getTeleport();
 		}
@@ -67,17 +80,27 @@ public class Player {
 			System.out.println("Wall at the east");
 			return false;
 		}
+		if (tile.getEast().getClass().getCanonicalName().equals("Board.ExitTile")) {
+			if (treasure) {
+				System.out.println("You have won!");
+				return true;
+			} else {
+				System.out.println("You found an exit, but you don't have a treasure.");
+				return false;
+			}
+		}
 		tile = tile.getEast();
 		System.out.println("Player " + name + " moved to " + tile);
-		if(tile.hasTreasure()){
+		if (tile.hasTreasure()) {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		} else if(tile.hasArsenal()){
+		} else if (tile.hasArsenal()) {
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
-		} else if(tile.getTeleport() != null){
+			dynamite += board.getDefaultDynamites();
+		} else if (tile.getTeleport() != null) {
 			System.out.println(name + " has been teleported");
 			tile = tile.getTeleport();
 		}
@@ -90,17 +113,27 @@ public class Player {
 			System.out.println("Wall at the south");
 			return false;
 		}
+		if (tile.getSouth().getClass().getCanonicalName().equals("Board.ExitTile")) {
+			if (treasure) {
+				System.out.println("You have won!");
+				return true;
+			} else {
+				System.out.println("You found an exit, but you don't have a treasure.");
+				return false;
+			}
+		}
 		tile = tile.getSouth();
 		System.out.println("Player " + name + " moved to " + tile);
-		if(tile.hasTreasure()){
+		if (tile.hasTreasure()) {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		} else if(tile.hasArsenal()){
+		} else if (tile.hasArsenal()) {
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
-		} else if(tile.getTeleport() != null){
+			dynamite += board.getDefaultDynamites();
+		} else if (tile.getTeleport() != null) {
 			System.out.println(name + " has been teleported");
 			tile = tile.getTeleport();
 		}
@@ -113,17 +146,27 @@ public class Player {
 			System.out.println("Wall at the west");
 			return false;
 		}
+		if (tile.getWest().getClass().getCanonicalName().equals("Board.ExitTile")) {
+			if (treasure) {
+				System.out.println("You have won!");
+				return true;
+			} else {
+				System.out.println("You found an exit, but you don't have a treasure.");
+				return false;
+			}
+		}
 		tile = tile.getWest();
 		System.out.println("Player " + name + " moved to " + tile);
-		if(tile.hasTreasure()){
+		if (tile.hasTreasure()) {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
 			treasure = true;
-		} else if(tile.hasArsenal()){
+		} else if (tile.hasArsenal()) {
 			System.out.println(name + " has found arsenal");
 			tile.setArsenal(false);
 			shoots += board.getDefaultShoots();
-		} else if(tile.getTeleport() != null){
+			dynamite += board.getDefaultDynamites();
+		} else if (tile.getTeleport() != null) {
 			System.out.println(name + " has been teleported");
 			tile = tile.getTeleport();
 		}
@@ -174,19 +217,19 @@ public class Player {
 		return false;
 	}
 
-	public Tile getTile(){
+	public Tile getTile() {
 		return tile;
 	}
 
-	public String toString(){
+	public String toString() {
 		return name + "(" + shoots + ")";
 	}
 
-	public void setTreasure(boolean treasure){
+	public void setTreasure(boolean treasure) {
 		this.treasure = treasure;
 	}
 
-	public boolean hasTreasure(){
+	public boolean hasTreasure() {
 		return treasure;
 	}
 }

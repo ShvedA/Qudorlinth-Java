@@ -41,6 +41,7 @@ public class Labyrinth {
 		board.addTile(new Tile("E3"), false, true);
 		board.addTile(new Tile("E4"), true, true);
 		board.addTile(new Tile("E5"), true, false);
+		board.addExitTiles();
 
 		System.out.println("Printing the board:");
 		board.printBoard();

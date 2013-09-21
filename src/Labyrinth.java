@@ -48,19 +48,19 @@ public class Labyrinth {
 		board.putTreasure(3, 3);
 		board.putArsenal(1, 2);
 		Player player = new Player(board, "Jack", 2, 3);
-		player.moveEast();
-		player.moveEast();
-		player.moveEast();
-		player.moveSouth();
-		player.moveSouth();
-		player.moveEast();
-		player.moveWest();
-		player.moveNorth();
+		player.move(1);
+		player.move(1);
+		player.move(1);
+		player.move(2);
+		player.move(2);
+		player.move(1);
+		player.move(3);
+		player.move(0);
 		Player bob = new Player(board, "Bob", 4, 2);
 		Player peter = new Player(board, "Peter", 3, 2);
 		Player tom = new Player(board, "Tom", 3, 3);
-		bob.shootNorth();
-		peter.shootNorth();
+		bob.shoot(0);
+		peter.shoot(0);
 	}
 
 }

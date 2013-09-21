@@ -1,10 +1,10 @@
 package Board;
 
+import Player.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import Player.Player;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +23,7 @@ public class Board {
 	private List<Player> players = new ArrayList<Player>();
 	private int counter;
 
-	public Board(int height, int width){
+	public Board(int height, int width) {
 		this.height = height;
 		this.width = width;
 		board = new Tile[height][width];
@@ -31,9 +31,9 @@ public class Board {
 	}
 
 	//building board with tiles
-	public void addTile(Tile tile, boolean north, boolean west){
-		int heightPosition = counter/height;
-		int widthPosition = counter%width;
+	public void addTile(Tile tile, boolean north, boolean west) {
+		int heightPosition = counter / height;
+		int widthPosition = counter % width;
 		board[heightPosition][widthPosition] = tile;
 		if (heightPosition > 0 && north == true) {
 			tile.setNorth(board[heightPosition - 1][widthPosition]);
@@ -46,24 +46,24 @@ public class Board {
 		counter++;
 	}
 
-	public Tile getTile(int heightIndex, int widthIndex){
+	public Tile getTile(int heightIndex, int widthIndex) {
 		return board[heightIndex][widthIndex];
 	}
 
-	public void printBoard(){
-		for(int i = 0; i < height; i++){
-			for(int j = 0; j < width; j++){
+	public void printBoard() {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
 				System.out.print(board[i][j] + " ");
 			}
 			System.out.println();
 		}
 	}
 
-	private int[] findTileOnBoard(Tile tile){
+	private int[] findTileOnBoard(Tile tile) {
 		int[] coordinates = new int[2];
-		for(int i = 0; i < board.length; i++){
-			for(int j = 0; j < board[0].length; j++){
-				if (tile.equals(board[i][j])){
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				if (tile.equals(board[i][j])) {
 					coordinates[0] = i;
 					coordinates[1] = j;
 				}
@@ -72,146 +72,128 @@ public class Board {
 		return coordinates;
 	}
 
-	public boolean shootNorth(Tile tile, Player shooter){
-		int firstCoordinate = findTileOnBoard(tile)[0];
-		int secondCoordinate = findTileOnBoard(tile)[1];
+	public boolean shoot(Player shooter, int which) {
+		Direction direction = Direction.values()[which];
+		int firstCoordinate = findTileOnBoard(shooter.getTile())[0];
+		int secondCoordinate = findTileOnBoard(shooter.getTile())[1];
 		boolean missed = true;
-		for(int i = firstCoordinate; i > -1; i--){
-			if(board[i][secondCoordinate].getNorth() != null){
-				for(Player player: players){
-					if(player.getTile().equals(board[i][secondCoordinate].getNorth())){
-						System.out.println(shooter + " killed " + player);
-						missed = false;
-						if(player.hasTreasure()){
-							player.setTreasure(false);
-							shooter.setTreasure(true);
+		switch (direction) {
+			case NORTH:
+				for (int i = firstCoordinate; i > -1; i--) {
+					if (board[i][secondCoordinate].getNorth() != null) {
+						for (Player player : players) {
+							if (player.getTile().equals(board[i][secondCoordinate].getNorth())) {
+								missed = false;
+								killing(shooter, player);
+							}
 						}
+						if (!missed)
+							return true;
+					} else {
+						break;
 					}
 				}
-				if(!missed)
-					return true;
-			} else {
 				break;
-			}
+			case EAST:
+				for (int j = secondCoordinate; j < board[0].length; j++) {
+					if (board[firstCoordinate][j].getEast() != null) {
+						for (Player player : players) {
+							if (player.getTile().equals(board[firstCoordinate][j].getEast())) {
+								missed = false;
+								killing(shooter, player);
+							}
+						}
+						if (!missed)
+							return true;
+					} else {
+						break;
+					}
+				}
+				break;
+			case SOUTH:
+				for (int i = firstCoordinate; i < board.length; i++) {
+					if (board[i][secondCoordinate].getSouth() != null) {
+						for (Player player : players) {
+							if (player.getTile().equals(board[i][secondCoordinate].getSouth())) {
+								missed = false;
+								killing(shooter, player);
+							}
+						}
+						if (!missed)
+							return true;
+					} else {
+						break;
+					}
+				}
+				break;
+			case WEST:
+				for (int j = secondCoordinate; j > -1; j--) {
+					if (board[firstCoordinate][j].getWest() != null) {
+						for (Player player : players) {
+							if (player.getTile().equals(board[firstCoordinate][j].getWest())) {
+								missed = false;
+								killing(shooter, player);
+							}
+						}
+						if (!missed)
+							return true;
+					} else {
+						break;
+					}
+				}
+				break;
 		}
 		return false;
 	}
 
-	public boolean shootEast(Tile tile, Player shooter){
-		int firstCoordinate = findTileOnBoard(tile)[0];
-		int secondCoordinate = findTileOnBoard(tile)[1];
-		boolean missed = true;
-		for(int j = secondCoordinate; j < board[0].length; j++){
-			if(board[firstCoordinate][j].getEast() != null){
-				for(Player player: players){
-					if(player.getTile().equals(board[firstCoordinate][j].getEast())){
-						System.out.println(shooter + " killed " + player);
-						missed = false;
-						if(player.hasTreasure()){
-							player.setTreasure(false);
-							shooter.setTreasure(true);
-						}
-					}
-				}
-				if(!missed)
-					return true;
-			} else {
-				break;
-			}
+	private void killing(Player shooter, Player player) {
+		System.out.println(shooter + " killed " + player);
+		if (player.hasTreasure()) {
+			player.setTreasure(false);
+			shooter.setTreasure(true);
 		}
-		return false;
 	}
 
-	public boolean shootSouth(Tile tile, Player shooter){
-		int firstCoordinate = findTileOnBoard(tile)[0];
-		int secondCoordinate = findTileOnBoard(tile)[1];
-		boolean missed = true;
-		for(int i = firstCoordinate; i < board.length; i++){
-			if(board[i][secondCoordinate].getSouth() != null){
-				for(Player player: players){
-					if(player.getTile().equals(board[i][secondCoordinate].getSouth())){
-						System.out.println(shooter + " killed " + player);
-						missed = false;
-						if(player.hasTreasure()){
-							player.setTreasure(false);
-							shooter.setTreasure(true);
-						}
-					}
-				}
-				if(!missed)
-					return true;
-			} else {
-				break;
-			}
-		}
-		return false;
-	}
-
-	public boolean shootWest(Tile tile, Player shooter){
-		int firstCoordinate = findTileOnBoard(tile)[0];
-		int secondCoordinate = findTileOnBoard(tile)[1];
-		boolean missed = true;
-		for(int j = secondCoordinate; j > -1; j--){
-			if(board[firstCoordinate][j].getWest() != null){
-				for(Player player: players){
-					if(player.getTile().equals(board[firstCoordinate][j].getWest())){
-						System.out.println(shooter + " killed " + player);
-						missed = false;
-						if(player.hasTreasure()){
-							player.setTreasure(false);
-							shooter.setTreasure(true);
-						}
-					}
-				}
-				if(!missed)
-					return true;
-			} else {
-				break;
-			}
-		}
-		return false;
-	}
-
-	public Tile[][] getBoard(){
+	public Tile[][] getBoard() {
 		return board;
 	}
 
-	public void addPlayer(Player player){
+	public void addPlayer(Player player) {
 		players.add(player);
 	}
 
-	public List<Player> getPlayers(){
+	public List<Player> getPlayers() {
 		return players;
 	}
 
-	public int getDefaultShoots(){
+	public int getDefaultShoots() {
 		return DEFAULT_SHOOTS;
 	}
 
-	public int getDefaultDynamites(){
+	public int getDefaultDynamites() {
 		return DEFAULT_DYNAMITES;
 	}
 
-	public void putTreasure(int vertical, int horizontal){
-		board[vertical-1][horizontal-1].setTreasure(true);
+	public void putTreasure(int vertical, int horizontal) {
+		board[vertical - 1][horizontal - 1].setTreasure(true);
 	}
 
-	public void putArsenal(int vertical, int horizontal){
-		board[vertical-1][horizontal-1].setArsenal(true);
+	public void putArsenal(int vertical, int horizontal) {
+		board[vertical - 1][horizontal - 1].setArsenal(true);
 	}
 
-	public void makeTeleport(Tile tile1, Tile tile2, Tile tile3){
+	public void makeTeleport(Tile tile1, Tile tile2, Tile tile3) {
 		tile1.setTeleport(tile2);
 		tile2.setTeleport(tile3);
 		tile3.setTeleport(tile1);
 	}
 
-	public void makeTeleport(Tile tile4, Tile tile5){
+	public void makeTeleport(Tile tile4, Tile tile5) {
 		tile4.setTeleport(tile5);
 		tile5.setTeleport(tile4);
 	}
 
-	public void addExitTiles(){
+	public void addExitTiles() {
 		Random randomHeight = new Random();
 		Random randomWidth = new Random();
 		int northExit = randomHeight.nextInt(height);

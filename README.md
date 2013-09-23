@@ -1,4 +1,4 @@
-Labyrinth
+Quadrolinth
 =========
 
-A game called Labyrinth
+A game called Quadrolinth

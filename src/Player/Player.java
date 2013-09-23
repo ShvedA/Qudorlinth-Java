@@ -24,7 +24,7 @@ public class Player {
 		shoots = board.getDefaultShoots();
 		dynamite = board.getDefaultDynamites();
 		board.addPlayer(this);
-		tile = board.getTile(height - 1, width - 1);
+		tile = board.getTile(height, width);
 		System.out.println("Player " + name + " started the game at " + tile.getName());
 		if (tile.hasTreasure()) {
 			System.out.println(name + " has recieved treasure");

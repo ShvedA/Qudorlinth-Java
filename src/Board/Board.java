@@ -175,11 +175,11 @@ public class Board {
 	}
 
 	public void putTreasure(int vertical, int horizontal) {
-		board[vertical - 1][horizontal - 1].setTreasure(true);
+		board[vertical][horizontal].setTreasure(true);
 	}
 
 	public void putArsenal(int vertical, int horizontal) {
-		board[vertical - 1][horizontal - 1].setArsenal(true);
+		board[vertical][horizontal].setArsenal(true);
 	}
 
 	public void makeTeleport(Tile tile1, Tile tile2, Tile tile3) {

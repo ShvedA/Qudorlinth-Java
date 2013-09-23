@@ -11,7 +11,7 @@ import Player.Player;
  * TODO: Control, that teleports, treasure and arsenal are different tiles.
  *
  */
-public class Labyrinth {
+public class Quadrolinth {
 
 	public static void main(String[] args) {
 
@@ -47,7 +47,7 @@ public class Labyrinth {
 		board.printBoard();
 		board.putTreasure(3, 3);
 		board.putArsenal(1, 2);
-		Player player = new Player(board, "Jack", 2, 3);
+		Player player = new Player(board, "Jack", 1, 2);
 		player.move(1);
 		player.move(1);
 		player.move(1);
@@ -56,11 +56,17 @@ public class Labyrinth {
 		player.move(1);
 		player.move(3);
 		player.move(0);
-		Player bob = new Player(board, "Bob", 4, 2);
-		Player peter = new Player(board, "Peter", 3, 2);
-		Player tom = new Player(board, "Tom", 3, 3);
+		Player bob = new Player(board, "Bob", 3, 1);
+		Player peter = new Player(board, "Peter", 2, 1);
 		bob.shoot(0);
 		peter.shoot(0);
+		board.makeTeleport(board.getTile(0,0),board.getTile(0, 1));
+		Player tom = new Player(board, "Tom", 0, 0);
+		tom.move(1);
+		tom.move(3);
+		tom.move(3);
+
+
 	}
 
 }

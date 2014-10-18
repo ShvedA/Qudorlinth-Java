@@ -1,4 +1,4 @@
-package GameServer;
+package ee.srd.shveda.quadrolinth.Board.Network;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,4 +7,5 @@ package GameServer;
  * Time: 16:30
  */
 public class ConnectionResponse {
+	public String text;
 }

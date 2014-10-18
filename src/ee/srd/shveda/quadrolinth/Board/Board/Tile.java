@@ -1,4 +1,4 @@
-package Board;
+package ee.srd.shveda.quadrolinth.Board.Board;
 
 /**
  * Created with IntelliJ IDEA.

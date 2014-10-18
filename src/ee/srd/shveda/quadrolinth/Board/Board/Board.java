@@ -1,6 +1,6 @@
-package Board;
+package ee.srd.shveda.quadrolinth.Board.Board;
 
-import Player.Player;
+import ee.srd.shveda.quadrolinth.Board.Player.Player;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
-package Player;
+package ee.srd.shveda.quadrolinth.Board.Player;
 
-import Board.Board;
-import Board.Tile;
-import Board.Direction;
+import ee.srd.shveda.quadrolinth.Board.Board.Board;
+import ee.srd.shveda.quadrolinth.Board.Board.Tile;
+import ee.srd.shveda.quadrolinth.Board.Board.Direction;
 /**
  * Created with IntelliJ IDEA.
  * User: Aleksandr Shved
@@ -25,7 +25,7 @@ public class Player {
 		dynamite = board.getDefaultDynamites();
 		board.addPlayer(this);
 		tile = board.getTile(height, width);
-		System.out.println("Player " + name + " started the game at " + tile.getName());
+		System.out.println("ee.srd.shveda.quadrolinth.Board.Player " + name + " started the game at " + tile.getName());
 		if (tile.hasTreasure()) {
 			System.out.println(name + " has recieved treasure");
 			tile.setTreasure(false);
@@ -79,7 +79,7 @@ public class Player {
 				}
 				break;
 		}
-		if(tileToMove.getClass().getCanonicalName().equals("Board.ExitTile")){
+		if(tileToMove.getClass().getCanonicalName().equals("ee.srd.shveda.quadrolinth.Board.Board.ExitTile")){
 			if(treasure){
 				System.out.println("You have won!");
 				return true;
@@ -89,7 +89,7 @@ public class Player {
 			}
 		} else{
 			tile = tileToMove;
-			System.out.println("Player " + name + " moved to " + tile);
+			System.out.println("ee.srd.shveda.quadrolinth.Board.Player " + name + " moved to " + tile);
 			if (tile.hasTreasure()) {
 				System.out.println(name + " has recieved treasure");
 				tile.setTreasure(false);

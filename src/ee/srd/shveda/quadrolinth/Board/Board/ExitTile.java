@@ -1,4 +1,6 @@
-package Board;
+package ee.srd.shveda.quadrolinth.Board.Board;
+
+import ee.srd.shveda.quadrolinth.Board.Board.Tile;
 
 /**
  * Created with IntelliJ IDEA.

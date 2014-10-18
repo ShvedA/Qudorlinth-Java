@@ -1,4 +1,4 @@
-Quadrolinth
+Quadrolinth on java
 =========
 
-A game called Quadrolinth
+A game called Quadrolinth on java
